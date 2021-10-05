@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from .models import Snippet
 from .serializers import SnippetSerializer, UserSerializer
+from .permissions import IsOwnerOrReadOnly
 
 
 # Create your views here.
@@ -24,7 +25,7 @@ class SinppetDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 
 class UserList(generics.ListAPIView):
